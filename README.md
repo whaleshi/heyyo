@@ -40,7 +40,7 @@ pnpm dev --host 127.0.0.1 --port 5174
 
 打开 http://127.0.0.1:5174/。本工作区已建立独立 PostgreSQL 数据库 `heyyo_indexer`，仅监听 127.0.0.1:5433，数据在 `.data/postgres`。数据库凭据只保存在被忽略的配置文件中。
 
-当前 Arc 主网使用 `INDEXER_CONFIRMATIONS=2`。只读索引器已扫描部署块并返回真实空列表；没有向 RPC 发送交易或测试发币。
+当前 Arc 主网使用 `INDEXER_CONFIRMATIONS=0`。只读索引器已扫描部署块并返回真实空列表；没有向 RPC 发送交易或测试发币。
 
 ## 首页索引边界
 

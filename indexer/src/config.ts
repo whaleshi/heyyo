@@ -28,15 +28,15 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env): IndexerConfig 
   const rawBlock = (env.INDEXER_START_BLOCK ?? startBlock.toString()).trim();
   if (rawBlock && !/^\d+$/.test(rawBlock)) throw new Error('Invalid deployment block');
   const rpcUrl = env.INDEXER_RPC_URL?.trim() ?? '';
-  if (rpcUrl && !['http:', 'https:'].includes(new URL(rpcUrl).protocol)) throw new Error('Invalid RPC URL');
+  if (rpcUrl && rpcUrl.split(',').some(url => !['http:', 'https:'].includes(new URL(url.trim()).protocol))) throw new Error('Invalid RPC URL');
   return {
     databaseUrl: env.INDEXER_DATABASE_URL?.trim() ?? '',
     chainId: integer(env.INDEXER_CHAIN_ID, chainId, 1, 2147483647),
     deploymentId: env.INDEXER_DEPLOYMENT_ID?.trim() ?? `heyyo-${chainId}-${agentAddress}`,
     rpcUrl, sourceAddresses, startBlock: rawBlock ? BigInt(rawBlock) : null,
-    confirmations: integer(env.INDEXER_CONFIRMATIONS, 6, 0, 128),
+    confirmations: integer(env.INDEXER_CONFIRMATIONS, 0, 0, 128),
     batchSize: integer(env.INDEXER_BATCH_SIZE, 100, 1, 1000),
-    pollInterval: integer(env.INDEXER_POLL_INTERVAL_MS, 3000, 1000, 60000),
+    pollInterval: integer(env.INDEXER_POLL_INTERVAL_MS, 1000, 1000, 60000),
     port: integer(env.INDEXER_API_PORT, 8787, 1024, 65535),
   };
 }

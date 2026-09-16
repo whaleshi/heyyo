@@ -21,12 +21,15 @@ export async function scanOnce(client: PoolClient, config: IndexerConfig, rpc: C
   const range = confirmedRange(last, await rpc.head(), config.confirmations, config.batchSize);
   if (!range) return false;
   const blocks = new Map<bigint, Block>();
-  // Small bounded batches keep RPC work outside the database transaction.
-  for (let n = range.fromBlock; n <= range.toBlock; n++) {
-    const block = await rpc.block(n);
-    const previousHash = blocks.get(n - 1n)?.hash ?? cursor?.last_block_hash;
-    if (previousHash && block.parentHash !== previousHash) throw new ReorgError('Discontinuous chain batch');
-    blocks.set(n, block);
+  // Fetch bounded groups concurrently, then validate in canonical block order.
+  for (let from = range.fromBlock; from <= range.toBlock; from += 8n) {
+    const numbers = Array.from({length: Number(range.toBlock - from + 1n < 8n ? range.toBlock - from + 1n : 8n)}, (_,i) => from + BigInt(i));
+    const fetched = await Promise.all(numbers.map(n => rpc.block(n)));
+    for (const block of fetched) {
+      const previousHash = blocks.get(block.number - 1n)?.hash ?? cursor?.last_block_hash;
+      if (previousHash && block.parentHash !== previousHash) throw new ReorgError('Discontinuous chain batch');
+      blocks.set(block.number, block);
+    }
   }
   const known = await client.query<{ token_address: string; launch_address: string; pool_address: string | null }>(
     'SELECT token_address,launch_address,pool_address FROM heyyo_tokens WHERE chain_id=$1 AND deployment_id=$2', [config.chainId,config.deploymentId]);

@@ -25,12 +25,13 @@ if (!hasSourceConfig(config) || !contractAdapterReady) {
     const lock = await client.query<{ locked: boolean }>('SELECT pg_try_advisory_lock($1,hashtext($2)) AS locked', [config.chainId,config.deploymentId]);
     if (!lock.rows[0]?.locked) throw new Error('An indexer already owns this Heyyo deployment');
     let failures = 0;
+    let metadataTask: Promise<void> | undefined;
     do {
       try {
         const advanced = await scanOnce(client, config, rpc, adapter);
         await syncRewards(pool, config, rpc);
         await syncMarkets(pool, config, rpc);
-        await enrichMetadata(pool, config).catch(() => console.error('Metadata enrichment will retry.'));
+
         failures = 0;
         if (!advanced && !process.argv.includes('--once')) await delay(config.pollInterval);
       } catch (error) {
@@ -42,8 +43,11 @@ if (!hasSourceConfig(config) || !contractAdapterReady) {
         // Avoid logging connection strings, metadata, or arbitrary RPC response bodies.
         console.error('Indexing or reward synchronization failed; retaining committed data and retrying.');
         await delay(Math.min(15000, 1000 * 2 ** Math.min(failures++, 4)));
+      } finally {
+        if (!metadataTask) metadataTask = enrichMetadata(pool, config).catch(() => console.error('Metadata enrichment will retry.')).finally(() => { metadataTask = undefined; });
       }
     } while (!stopping && !process.argv.includes('--once'));
+    await metadataTask;
   } finally {
     await client.query('SELECT pg_advisory_unlock($1,hashtext($2))', [config.chainId,config.deploymentId]).catch(() => {});
     client.release(); await pool.end();

@@ -6,7 +6,7 @@ import { fetchTokenList, IndexerRequestError } from './api';
 export const stages: TokenStage[] = ['new','soon','graduated'];
 export type BoardPages = Record<TokenStage,number>;
 export type BoardData = Record<TokenStage,TokenList>;
-export function useIndexedTokens(query: string, sort: TokenSort, pages: BoardPages, loader = fetchTokenList, interval = 15000) {
+export function useIndexedTokens(query: string, sort: TokenSort, pages: BoardPages, loader = fetchTokenList, interval = 3000) {
   const key = JSON.stringify([query,sort,pages.new,pages.soon,pages.graduated]);
   const [retry, setRetry] = useState(0);
   const [snapshot,setSnapshot] = useState<{ key: string; data: BoardData | null; error: string | null; loading: boolean }>(() => ({key,data:readBoardCache(key,loader),error:null,loading:true}));
