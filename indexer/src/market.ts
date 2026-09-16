@@ -25,7 +25,8 @@ export function ratio(n: bigint, d: bigint): string {
 }
 export function curvePrice(supply: bigint, target: bigint, sold: bigint, reserve: bigint, tokenDecimals: number, quoteDecimals: number) {
   const unit = 10n ** BigInt(tokenDecimals), quote = 10n ** BigInt(quoteDecimals);
-  if (sold === 0n && reserve === 0n) return ratio(target * unit, supply * 4n * quote);
+  // A complete sell can leave rounding dust in the quote reserve.
+  if (sold === 0n && reserve >= 0n) return ratio(target * unit, supply * 4n * quote);
   const virtual = supply * 4n / 3n;
   if (sold <= 0n || reserve <= 0n || sold >= virtual) throw new Error('Invalid curve reserves');
   return ratio(reserve * virtual * unit, sold * (virtual - sold) * quote);

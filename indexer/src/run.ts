@@ -27,11 +27,16 @@ if (!hasSourceConfig(config) || !contractAdapterReady) {
     let failures = 0;
     let metadataTask: Promise<void> | undefined;
     do {
+      let phase = 'scan';
+      const started = Date.now();
       try {
         const advanced = await scanOnce(client, config, rpc, adapter);
+        phase = 'rewards';
         await syncRewards(pool, config, rpc);
+        phase = 'markets';
         await syncMarkets(pool, config, rpc);
 
+        if (advanced) console.log(`Indexing cycle completed in ${Date.now()-started}ms`);
         failures = 0;
         if (!advanced && !process.argv.includes('--once')) await delay(config.pollInterval);
       } catch (error) {
@@ -41,7 +46,8 @@ if (!hasSourceConfig(config) || !contractAdapterReady) {
         }
         if (process.argv.includes('--once')) throw error;
         // Avoid logging connection strings, metadata, or arbitrary RPC response bodies.
-        console.error('Indexing or reward synchronization failed; retaining committed data and retrying.');
+        const detail = error instanceof Error && /^(Invalid curve reserves|RPC eth_[a-zA-Z]+ failed after endpoint retries)$/.test(error.message) ? error.message : 'Synchronization failed';
+        console.error(`${phase}: ${detail}; retrying after ${Date.now()-started}ms`);
         await delay(Math.min(15000, 1000 * 2 ** Math.min(failures++, 4)));
       } finally {
         if (!metadataTask) metadataTask = enrichMetadata(pool, config).catch(() => console.error('Metadata enrichment will retry.')).finally(() => { metadataTask = undefined; });

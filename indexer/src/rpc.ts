@@ -6,24 +6,43 @@ export class RpcClient implements ChainReader {
   private preferred = 0;
   private readonly urls: string[];
   constructor(url: string) { this.urls = url.split(',').map(value=>value.trim()).filter(Boolean); }
-  async request<T>(method: string, params: unknown[]): Promise<T> {
+  private pending: { method: string; params: unknown[]; resolve: (value: any) => void; reject: (error: Error) => void }[] = [];
+  private scheduled = false;
+  request<T>(method: string, params: unknown[]): Promise<T> {
+    return new Promise<T>((resolve,reject) => {
+      this.pending.push({method,params,resolve,reject});
+      if (!this.scheduled) {
+        this.scheduled=true;
+        setTimeout(() => { this.scheduled=false; const jobs=this.pending.splice(0); void this.flush(jobs); },0);
+      }
+    });
+  }
+  private async flush(jobs: typeof this.pending) {
     const first=this.preferred;
+    let remaining=jobs.map((job,i)=>({...job,id:i+1}));
     for (let attempt=0; attempt<this.urls.length*3; attempt++) {
       const index=(first+attempt)%this.urls.length;
       const scheduled=Math.max(Date.now(),this.nextRequestAt);
       this.nextRequestAt=scheduled+300;
       await delay(Math.max(0,scheduled-Date.now()));
+      const requests=remaining.map(({id,method,params})=>({jsonrpc:'2.0',id,method,params}));
       try {
         const response=await fetch(this.urls[index],{method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({jsonrpc:'2.0',id:1,method,params}),signal:AbortSignal.timeout(8000)});
+          body:JSON.stringify(requests.length===1?requests[0]:requests),signal:AbortSignal.timeout(8000)});
         if(response.ok){
-          const json=await response.json() as {error?:unknown;result?:T};
-          if(!json.error && json.result!==undefined && json.result!==null){this.preferred=index;return json.result;}
+          const json=await response.json();
+          const replies=Array.isArray(json)?json:[json];
+          remaining=remaining.filter(job=>{
+            const reply=replies.find(item=>item?.id===job.id);
+            if(reply && !reply.error && reply.result!==undefined && reply.result!==null){job.resolve(reply.result);return false;}
+            return true;
+          });
+          if(!remaining.length){this.preferred=index;return;}
         } else {await response.body?.cancel();}
-      } catch { /* Try the alternate read-only endpoint without exposing response bodies or credentials. */ }
+      } catch { /* Retry without exposing response bodies or credentials. */ }
       if((attempt+1)%this.urls.length===0 && attempt+1<this.urls.length*3) await delay(1000*2**Math.floor(attempt/this.urls.length));
     }
-    throw new Error(`RPC ${method} failed after endpoint retries`);
+    for(const job of remaining) job.reject(new Error(`RPC ${job.method} failed after endpoint retries`));
   }
   async chainId() { return Number(BigInt(await this.request<string>('eth_chainId', []))); }
   async head() { return BigInt(await this.request<string>('eth_blockNumber', [])); }

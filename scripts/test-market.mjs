@@ -83,3 +83,15 @@ test('bad pool binding or reorg cannot commit partial market updates',async()=>{
     assert.equal(String((await f.pg.query('SELECT market_block FROM heyyo_tokens')).rows[0].market_block),'10');
   } finally {await f.db.close();}
 });
+test('complete sell with one raw unit of reserve dust does not stall later market batches',async()=>{
+ const f=await fixture();try{
+  f.logs.push(log(curveInterface,'TokensBought',[addr(3),600n*unit,0,600n*unit,200n*unit,200n*unit,600n*unit],10,5,launch));
+  await syncMarkets(f.pg,config,f.rpc);await f.head(11);
+  f.logs.push(log(curveInterface,'TokensSold',[addr(3),200n*unit,600n*unit-1n,0,600n*unit-1n,0,1n],11,1,launch));
+  await syncMarkets(f.pg,config,f.rpc);
+  assert.equal(String((await f.pg.query('SELECT market_block FROM heyyo_tokens')).rows[0].market_block),'11');
+  assert.equal((await f.list('new')).items[0].marketCap,2500);
+  await f.head(12);await syncMarkets(f.pg,config,f.rpc);
+  assert.equal(String((await f.pg.query('SELECT market_block FROM heyyo_tokens')).rows[0].market_block),'12');
+ }finally{await f.db.close();}
+});
