@@ -3,7 +3,9 @@
 - Host: `heyyo@148.66.155.141`
 - Checkout: `/var/www/heyyo`, branch `main`
 - Git remote: `git@github-heyyo:whaleshi/heyyo.git` (server SSH alias selects the read-only deploy key)
-- HTTP site: `http://148.66.155.141`; domain and TLS not configured yet.
+- Canonical site: `https://heyyo.club`. HTTP on both domains and HTTPS on `www.heyyo.club` redirect with 301 to the canonical domain, preserving path/query.
+- Let's Encrypt certificate covers both domains. `certbot.timer` handles renewal; `/etc/letsencrypt/renewal-hooks/deploy/reload-nginx` reloads Nginx after renewal.
+- Domain Nginx configuration: `/etc/nginx/sites-available/heyyo-domain`. IP-only HTTP access remains available.
 - Frontend: Nginx serves `dist`; `/api/` proxies to `127.0.0.1:8787`.
 - Processes: `heyyo-api.service` and `heyyo-indexer.service`, running as `heyyo`, enabled at boot with restart-on-failure.
 - PostgreSQL: local port 5432, dedicated `heyyo_indexer` database.
