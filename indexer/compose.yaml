@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: heyyo_indexer
+      POSTGRES_USER: heyyo
+      POSTGRES_PASSWORD: ${HEYYO_POSTGRES_PASSWORD:?Set HEYYO_POSTGRES_PASSWORD}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - heyyo_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U heyyo -d heyyo_indexer"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  heyyo_pgdata:

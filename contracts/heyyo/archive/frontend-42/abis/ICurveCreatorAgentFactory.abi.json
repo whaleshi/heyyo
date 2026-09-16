@@ -1,0 +1,129 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "configId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDexConfig",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "factory",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "positionManager",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "router",
+            "type": "address"
+          },
+          {
+            "internalType": "uint24",
+            "name": "poolFee",
+            "type": "uint24"
+          },
+          {
+            "internalType": "int24",
+            "name": "tickSpacing",
+            "type": "int24"
+          },
+          {
+            "internalType": "bool",
+            "name": "enabled",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct ICurveCreatorAgentFactory.DexConfig",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "launchId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLaunchRecord",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum ICurveCreatorAgentFactory.LaunchMode",
+            "name": "mode",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "token",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "tokenImplementation",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "launch",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "templateId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dexConfigId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "paymentTokenConfigId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "snapshotHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "string",
+            "name": "metadataURI",
+            "type": "string"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "metadataHash",
+            "type": "bytes32"
+          }
+        ],
+        "internalType": "struct ICurveCreatorAgentFactory.LaunchRecord",
+        "name": "record",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

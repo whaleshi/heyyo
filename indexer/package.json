@@ -1,0 +1,15 @@
+{
+  "name": "@heyyo/indexer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/run.ts",
+    "once": "tsx src/run.ts --once",
+    "api": "tsx src/api.ts",
+    "migrate": "tsx src/migrate.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": { "dotenv": "^17.2.3", "pg": "^8.16.3" },
+  "devDependencies": { "@types/node": "^22.0.0", "@types/pg": "^8.16.0", "tsx": "^4.23.13", "typescript": "^5.7.3" }
+}

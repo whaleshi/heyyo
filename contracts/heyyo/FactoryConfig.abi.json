@@ -1,0 +1,244 @@
+[
+  {
+    "inputs": [],
+    "name": "dexConfigCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "configId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCurveProfile",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "totalTokenSupply",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "curveTokenSupply",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "liquidityTokenSupply",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "graduationQuoteTarget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "earlyBuyWalletCap",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint8",
+            "name": "quoteDecimals",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct LaunchTypes.CurveProfile",
+        "name": "profile",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "configId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDexConfig",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "factory",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "positionManager",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "router",
+            "type": "address"
+          },
+          {
+            "internalType": "uint24",
+            "name": "poolFee",
+            "type": "uint24"
+          },
+          {
+            "internalType": "int24",
+            "name": "tickSpacing",
+            "type": "int24"
+          },
+          {
+            "internalType": "bool",
+            "name": "enabled",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct LaunchTypes.DexConfig",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "templateId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLaunchTemplate",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "enum LaunchTypes.LaunchMode",
+            "name": "mode",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "enabled",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct LaunchTypes.LaunchTemplate",
+        "name": "template",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "configId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPaymentTokenConfig",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "asset",
+            "type": "address"
+          },
+          {
+            "internalType": "uint8",
+            "name": "decimals",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum LaunchTypes.PaymentKind",
+            "name": "kind",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bool",
+            "name": "enabled",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "allowBlacklistToken",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint16",
+            "name": "maxTradingFeeBpsOverride",
+            "type": "uint16"
+          }
+        ],
+        "internalType": "struct LaunchTypes.PaymentTokenConfig",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "templateId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTemplateModeConfigId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "configId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "launchTemplateCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paymentTokenConfigCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "runId": "my-first-launch",
+  "rpcUrl": "http://148.66.155.65:8545",
+  "chainId": 31337,
+  "uploadApiUrl": "http://127.0.0.1:8787/api",
+  "templateId": "2",
+  "dexConfigId": "1",
+  "paymentTokenConfigId": "1",
+  "creator": {
+    "privateKey": "填写创建钱包私钥"
+  },
+  "token": {
+    "name": "My Token",
+    "symbol": "MYTOKEN",
+    "description": "My token description",
+    "imagePath": "./token.png",
+    "website": "",
+    "x": "",
+    "telegram": ""
+  },
+  "timeoutSeconds": 180,
+  "buyers": [
+    {
+      "label": "wallet-1",
+      "privateKey": "填写第一个买入钱包私钥",
+      "amount": "10"
+    },
+    {
+      "label": "wallet-2",
+      "privateKey": "填写第二个买入钱包私钥",
+      "amount": "20"
+    }
+  ],
+  "gas": {
+    "create": "10000000",
+    "approve": "100000",
+    "buy": "1000000",
+    "gasPriceGwei": "2"
+  }
+}

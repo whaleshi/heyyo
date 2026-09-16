@@ -1,0 +1,30 @@
+export type TokenStage = 'new' | 'soon' | 'graduated';
+export type TokenSort = 'recent' | 'market' | 'volume';
+export type IndexedToken = {
+  id: string;
+  chainId: number;
+  contractAddress: string;
+  launchAddress: string;
+  creatorAddress: string;
+  name: string;
+  ticker: string;
+  image?: string;
+  description: string;
+  createdAt: number;
+  stage: TokenStage;
+  progress: number | null;
+  marketCap: number | null;
+  change: number | null;
+  volume: number | null;
+};
+export type TokenListQuery = { stage: TokenStage; sort: TokenSort; query: string; page: number; pageSize: number };
+export type TokenList = {
+  items: IndexedToken[];
+  page: number;
+  pageSize: number;
+  total: number;
+  counts: Record<TokenStage, number>;
+  indexedBlock: string;
+  updatedAt: string;
+};
+export type IndexerErrorCode = 'CONTRACT_NOT_CONFIGURED' | 'INDEXER_NOT_READY' | 'INDEXER_UNAVAILABLE' | 'INVALID_QUERY';

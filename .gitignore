@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+.data/
+
+# Local launch configs can contain private keys.
+scripts/launch.local.json
+scripts/launch.*.local.json

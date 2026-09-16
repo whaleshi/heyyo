@@ -1,0 +1,6 @@
+packages:
+  - indexer
+onlyBuiltDependencies:
+  - esbuild
+ignoredBuiltDependencies:
+  - '@reown/appkit'

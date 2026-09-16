@@ -1,0 +1,47 @@
+{
+  "name": "heyyo-frontend",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "tsx --test scripts/test-*.mjs",
+    "indexer:start": "pnpm --filter @heyyo/indexer start",
+    "indexer:once": "pnpm --filter @heyyo/indexer once",
+    "indexer:api": "pnpm --filter @heyyo/indexer api",
+    "indexer:migrate": "pnpm --filter @heyyo/indexer migrate",
+    "indexer:typecheck": "pnpm --filter @heyyo/indexer typecheck",
+    "launch:run": "tsx scripts/launch.ts",
+    "launch:check": "tsx scripts/launch.ts --check",
+    "launch:typecheck": "tsc -p scripts/tsconfig.json"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "1.1.6",
+    "@rainbow-me/rainbowkit": "^2.2.11",
+    "@tanstack/react-query": "^5.103.1",
+    "ethers": "^6.17.0",
+    "lucide-react": "0.487.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "viem": "^2.56.5",
+    "wagmi": "^2.19.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "4.7.0",
+    "react-test-renderer": "18.3.1",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.3",
+    "vite": "6.3.5"
+  },
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=22.6.0",
+    "pnpm": ">=10 <11"
+  }
+}

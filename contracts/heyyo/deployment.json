@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "protocol": "ayoo-proxy",
+  "generatedAt": "2026-09-16T19:43:09.090Z",
+  "network": "remote",
+  "chain": {
+    "chainId": 31337
+  },
+  "addresses": {
+    "CurveCreatorAgent": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
+    "CurveCreatorAgentProxy": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
+    "LaunchpadFactory": "0xED31e7ec603651803784196003903aCa05550552"
+  },
+  "config": {
+    "agent": {
+      "version": "1.1.0",
+      "launchpadFactory": "0xED31e7ec603651803784196003903aCa05550552",
+      "constants": {
+        "bpsDenominator": "10000",
+        "creatorShareBps": "5000",
+        "deadAddress": "0x000000000000000000000000000000000000dEaD"
+      }
+    },
+    "target": {
+      "configured": false,
+      "launchId": "0",
+      "launch": "0x0000000000000000000000000000000000000000",
+      "token": "0x0000000000000000000000000000000000000000",
+      "feeVault": "0x0000000000000000000000000000000000000000",
+      "paymentToken": "0x0000000000000000000000000000000000000000",
+      "paymentKind": "0",
+      "weth": "0x0000000000000000000000000000000000000000",
+      "router": "0x0000000000000000000000000000000000000000",
+      "poolFee": "0"
+    },
+    "source": {
+      "paymentConfigured": false,
+      "paymentToken": "0x0000000000000000000000000000000000000000",
+      "paymentKind": "0",
+      "launchIds": [],
+      "launches": []
+    }
+  },
+  "contracts": {
+    "CurveCreatorAgent": {
+      "deploymentName": "CurveCreatorAgent",
+      "contractName": "CurveCreatorAgent",
+      "address": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
+      "transactionHash": "0x27fd03dc32e981d8d69b4c5187e50f64879dc6ad3496a49ef85b89a5e9554b4e",
+      "blockNumber": 21208471
+    },
+    "CurveCreatorAgentProxy": {
+      "deploymentName": "CurveCreatorAgent_Proxy",
+      "contractName": "ERC1967Proxy",
+      "address": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
+      "transactionHash": "0x27fd03dc32e981d8d69b4c5187e50f64879dc6ad3496a49ef85b89a5e9554b4e",
+      "blockNumber": 21208472
+    }
+  },
+  "artifacts": {
+    "CurveCreatorAgent": "abis/CurveCreatorAgent.abi.json",
+    "ICurveCreatorAgentFactory": "abis/ICurveCreatorAgentFactory.abi.json",
+    "ICurveCreatorAgentLaunch": "abis/ICurveCreatorAgentLaunch.abi.json",
+    "ICurveCreatorAgentManagedToken": "abis/ICurveCreatorAgentManagedToken.abi.json",
+    "ICurveCreatorAgentFeeVault": "abis/ICurveCreatorAgentFeeVault.abi.json",
+    "ERC20": "abis/ERC20.abi.json",
+    "WETH": "abis/WETH.abi.json"
+  }
+}

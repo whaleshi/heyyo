@@ -1,0 +1,12 @@
+{
+  "extends": "../indexer/tsconfig.json",
+  "include": [
+    "launch.ts",
+    "lib/launch-*.ts"
+  ],
+  "compilerOptions": {
+    "typeRoots": [
+      "../indexer/node_modules/@types"
+    ]
+  }
+}
