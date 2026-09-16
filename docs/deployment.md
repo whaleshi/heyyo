@@ -31,4 +31,4 @@ sudo systemctl restart heyyo-api heyyo-indexer
 
 Inspect status with `systemctl status heyyo-api heyyo-indexer nginx` and logs with `journalctl -u heyyo-indexer -n 50`. The API stays unavailable until the first index batch commits. No trading script is executed and no wallet private key is uploaded.
 
-Indexer RPCs: `https://rpc.mainnet.arc.io,https://arc.drpc.org/`, with failover/retries and paced requests. Confirmation count is 0 and idle polling is 1 second. Metadata enrichment runs independently so RPC failures cannot starve image updates. Homepage refresh interval is 3 seconds.
+Indexer RPCs: `https://rpc.mainnet.arc.io,https://arc.drpc.org/`, with failover/retries and paced JSON-RPC batches. Parallel reads are combined into one HTTP request and replies are matched by ID. The server uses `INDEXER_BATCH_SIZE=500` to catch up faster. Confirmation count is 0 and idle polling is 1 second. Metadata enrichment runs independently so RPC failures cannot starve image updates. Homepage refresh interval is 3 seconds.
