@@ -62,6 +62,9 @@ export async function syncMarkets(pool: Pool, config: IndexerConfig, rpc: RpcCli
     const tip = await block(to);
     async function logs(address: string) {
       const result = await rpc.request<ChainLog[]>('eth_getLogs',[{address,fromBlock:hex(from),toBlock:hex(to)}]);
+      const missing = [...new Set(result.map(log=>BigInt(log.blockNumber)))].filter(n=>!blocks.has(n));
+      if (missing.some(n=>n<from || n>to)) throw new ReorgError('Invalid market log range');
+      for (let i=0;i<missing.length;i+=8) await Promise.all(missing.slice(i,i+8).map(block));
       for (const log of result) {
         const n=BigInt(log.blockNumber);
         if(log.removed || !sameAddress(log.address,address) || n<from || n>to || (await block(n)).hash!==log.blockHash.toLowerCase()) throw new ReorgError('Invalid market log');
