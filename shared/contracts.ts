@@ -9,8 +9,8 @@ export { deployment, agentAbi, tokenAbi };
 export const agentAddress = deployment.addresses.CurveCreatorAgent.toLowerCase();
 export const factoryAddress = deployment.addresses.LaunchpadFactory.toLowerCase();
 export const chainId = deployment.chain.chainId;
-// User-specified indexing start for the current 31337 RPC snapshot.
-export const startBlock = 21212800n;
+// Verified against the successful frontend 44 proxy deployment receipt.
+export const startBlock = BigInt(deployment.contracts.CurveCreatorAgentProxy.blockNumber);
 export const agentInterface = new Interface(agentAbi);
 export const tokenInterface = new Interface(tokenAbi);
 const factoryInterface = new Interface(factoryAbi);

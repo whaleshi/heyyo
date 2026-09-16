@@ -29,3 +29,7 @@ The six-argument Agent creation method was checked using an eth_call simulation 
 The user changed the RPC chain ID to 31337 without changing contract addresses. `eth_chainId` was verified as `0x7a69`; runtime deployment and local launch/indexer configuration now use 31337. The original bundle verification above describes the earlier chain ID.
 
 The current 31337 RPC first exposes Agent code at block 21212823 (historical `eth_getCode` binary search; earlier blocks return `0x`). This is the current indexing start, not a verified new proxy deployment receipt. The bundle's original receipt block 21208472 does not contain this address on the current snapshot.
+
+## frontend 44 — current runtime deployment
+
+Imported from frontend 44. ABI contents are unchanged from frontend 43 (v1.1.0). Runtime chain is now Arc 5042, RPC https://rpc.mainnet.arc.io, Agent 0xf27caE48838df561E6a4E68d98E2539e9C135c25. Factory/version and template 2, DEX 1, payment 1 were verified by RPC. Successful proxy receipt 0xa33ac51870a42926f15a45835bf9f125eaf79f5ff01b631041ac82c05bd8af87 is block 21221144; the earlier 21221140 entry in the bundle is not used. All eight old Heyyo index tables were cleared on user request before restarting with two confirmations (user-selected). Earlier entries above are historical.

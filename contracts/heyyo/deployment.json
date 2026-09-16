@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "protocol": "ayoo-proxy",
-  "generatedAt": "2026-09-16T19:43:09.090Z",
-  "network": "remote",
+  "generatedAt": "2026-09-16T21:29:51.008Z",
+  "network": "arcMainnet",
   "chain": {
-    "chainId": 31337
+    "chainId": 5042
   },
   "addresses": {
-    "CurveCreatorAgent": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
-    "CurveCreatorAgentProxy": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
+    "CurveCreatorAgent": "0xf27caE48838df561E6a4E68d98E2539e9C135c25",
+    "CurveCreatorAgentProxy": "0xf27caE48838df561E6a4E68d98E2539e9C135c25",
     "LaunchpadFactory": "0xED31e7ec603651803784196003903aCa05550552"
   },
   "config": {
@@ -45,16 +45,16 @@
     "CurveCreatorAgent": {
       "deploymentName": "CurveCreatorAgent",
       "contractName": "CurveCreatorAgent",
-      "address": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
-      "transactionHash": "0x27fd03dc32e981d8d69b4c5187e50f64879dc6ad3496a49ef85b89a5e9554b4e",
-      "blockNumber": 21208471
+      "address": "0xf27caE48838df561E6a4E68d98E2539e9C135c25",
+      "transactionHash": "0xa33ac51870a42926f15a45835bf9f125eaf79f5ff01b631041ac82c05bd8af87",
+      "blockNumber": 21221140
     },
     "CurveCreatorAgentProxy": {
       "deploymentName": "CurveCreatorAgent_Proxy",
       "contractName": "ERC1967Proxy",
-      "address": "0xe5FC1B60afb89a9136fe7A5c4eE5A03D33c8612b",
-      "transactionHash": "0x27fd03dc32e981d8d69b4c5187e50f64879dc6ad3496a49ef85b89a5e9554b4e",
-      "blockNumber": 21208472
+      "address": "0xf27caE48838df561E6a4E68d98E2539e9C135c25",
+      "transactionHash": "0xa33ac51870a42926f15a45835bf9f125eaf79f5ff01b631041ac82c05bd8af87",
+      "blockNumber": 21221144
     }
   },
   "artifacts": {

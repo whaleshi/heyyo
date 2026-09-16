@@ -1,7 +1,7 @@
 {
   "runId": "my-first-launch",
-  "rpcUrl": "http://148.66.155.65:8545",
-  "chainId": 31337,
+  "rpcUrl": "https://rpc.mainnet.arc.io",
+  "chainId": 5042,
   "uploadApiUrl": "http://127.0.0.1:8787/api",
   "templateId": "2",
   "dexConfigId": "1",

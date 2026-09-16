@@ -14,7 +14,7 @@ pnpm launch:run
 - `creator.privateKey`：创建钱包私钥。
 - `token`：名称、符号、描述、图片路径、网站和社交链接。
 - `buyers`：多个买入钱包的私钥和各自 `amount`。当前支付配置为 USDC，`"10.25"` 表示花费 10.25 USDC，不是买入 10.25 枚新币。金额必须填写字符串。
-- `rpcUrl` / `chainId`：普通 RPC，当前已填 31337 部署，无需交易包服务。
+- `rpcUrl` / `chainId`：普通 RPC，当前已填 Arc 5042 主网部署，无需交易包服务。
 - `runId`：本次发行唯一名称。结果保存在 `.data/launch-runs/<runId>.json`，同名拒绝重复运行。
 - `gas.create` / `gas.approve` / `gas.buy`：固定 gas limit；`gas.gasPriceGwei`：固定 gas price。样例值可修改，脚本不调用 gas 预估。
 

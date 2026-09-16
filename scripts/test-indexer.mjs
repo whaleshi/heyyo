@@ -95,7 +95,7 @@ test('stage, search and sorting happen before pagination; only migration marks a
 test('scanner atomically advances the cursor and refuses a changed chain',async()=>{
   const {db,client}=await database();
   try {
-    const rpc={head:async()=>13n,block:async n=>block(Number(n)),chainId:async()=>31337};
+    const rpc={head:async()=>13n,block:async n=>block(Number(n)),chainId:async()=>5042};
     const adapter={readEvents:async()=>[trade(),created()]};
     assert.equal(await scanOnce(client,config,rpc,adapter),true);
     assert.equal((await client.query('SELECT last_block::text FROM heyyo_cursor')).rows[0].last_block,'11');
@@ -108,7 +108,7 @@ test('scanner atomically advances the cursor and refuses a changed chain',async(
 test('malformed or unowned batch rolls back tokens, trades and the cursor together',async()=>{
   const {db,client}=await database();
   try {
-    const rpc={head:async()=>13n,block:async n=>block(Number(n)),chainId:async()=>31337};
+    const rpc={head:async()=>13n,block:async n=>block(Number(n)),chainId:async()=>5042};
     await assert.rejects(scanOnce(client,config,rpc,{readEvents:async()=>[created(),trade(33)]}),/indexed Heyyo/);
     for(const table of ['heyyo_cursor','heyyo_tokens','heyyo_events','heyyo_trades']) {
       assert.equal((await client.query(`SELECT count(*)::integer n FROM ${table}`)).rows[0].n,0);

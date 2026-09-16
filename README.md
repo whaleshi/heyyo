@@ -6,7 +6,7 @@ React 18 + TypeScript + Vite，使用 pnpm、RainbowKit、Wagmi 和 Ethers v6。
 
 使用 `contracts/heyyo/deployment.json` 与 `abis/`，原始资料来自用户提供的 `frontend 43`，完整说明保存在 `contracts/heyyo/FRONTEND_INTEGRATION.md`。
 
-- 网络：31337，RPC 地址配置在被忽略的 `.env.local` 和 `indexer/.env.local`。
+- 网络：5042，RPC 地址配置在被忽略的 `.env.local` 和 `indexer/.env.local`。
 - Agent Proxy：`0xfeDDCFCf739c3899C1DEbC5aD44E45de809A847c`。
 - Factory：`0xED31e7ec603651803784196003903aCa05550552`。
 - Proxy 部署回执已核验，起始区块 21186584。
@@ -40,7 +40,7 @@ pnpm dev --host 127.0.0.1 --port 5174
 
 打开 http://127.0.0.1:5174/。本工作区已建立独立 PostgreSQL 数据库 `heyyo_indexer`，仅监听 127.0.0.1:5433，数据在 `.data/postgres`。数据库凭据只保存在被忽略的配置文件中。
 
-当前 31337 开发链使用 `INDEXER_CONFIRMATIONS=0`，因为它按交易出块；生产默认 6，不应照搬开发值。只读索引器已扫描部署块并返回真实空列表；没有向 RPC 发送交易或测试发币。
+当前 Arc 主网使用 `INDEXER_CONFIRMATIONS=2`。只读索引器已扫描部署块并返回真实空列表；没有向 RPC 发送交易或测试发币。
 
 ## 首页索引边界
 
@@ -71,4 +71,4 @@ SDK 分包仍有体积提示。旧 model/store 的模拟数据仅作为遗留代
 
 填写 `scripts/launch.local.json` 的代币信息、创建私钥、买入私钥及各自 USDC 金额。先执行 `pnpm launch:check` 检查，再运行 `pnpm launch:run`。创建确认后立即并发授权/买入，不额外等待区块，固定 minOut=1，不预估报价或 gas；只需普通 RPC，不保证同块。详见 [脚本说明](scripts/LAUNCH.md)。未发送真实交易。
 
-钱包连接参考 Ayoo 的 RainbowKit 配置，沿用 `VITE_REOWN_PROJECT_ID` 作为 WalletConnect project ID。当前链为 31337；账户状态由 Wagmi 管理，Ethers 使用选中 connector 的 provider。
+钱包连接参考 Ayoo 的 RainbowKit 配置，沿用 `VITE_REOWN_PROJECT_ID` 作为 WalletConnect project ID。当前链为 5042；账户状态由 Wagmi 管理，Ethers 使用选中 connector 的 provider。
