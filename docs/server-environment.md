@@ -1,4 +1,6 @@
-# Heyyo server environment (prepared, not deployed)
+# Heyyo server environment preparation record
+
+This records the initial preparation. The project has since been deployed to `/var/www/heyyo`; see [deployment.md](deployment.md) for current status and update instructions.
 
 Server: `heyyo@148.66.155.141`. Prepared 2026-09-17.
 
