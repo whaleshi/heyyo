@@ -1,3 +1,4 @@
+import { syncPlatform } from './platform.ts';
 import { syncMarkets } from './market.ts';
 import { syncRewards } from './rewards.ts';
 import { enrichMetadata } from './metadata.ts';
@@ -31,6 +32,8 @@ if (!hasSourceConfig(config) || !contractAdapterReady) {
       const started = Date.now();
       try {
         const advanced = await scanOnce(client, config, rpc, adapter);
+        phase = 'platform';
+        await syncPlatform(pool, config, rpc);
         phase = 'rewards';
         await syncRewards(pool, config, rpc);
         phase = 'markets';

@@ -106,3 +106,10 @@ CREATE INDEX IF NOT EXISTS heyyo_tokens_creator ON heyyo_tokens(chain_id,deploym
 -- Per-token market cursors allow historical backfill without rewinding registry/rewards.
 ALTER TABLE heyyo_tokens ADD COLUMN IF NOT EXISTS market_block bigint;
 ALTER TABLE heyyo_tokens ADD COLUMN IF NOT EXISTS market_block_hash text;
+
+CREATE TABLE IF NOT EXISTS heyyo_platform_state (
+  chain_id integer NOT NULL, deployment_id text NOT NULL, token_address text NOT NULL,
+  block_number bigint NOT NULL, block_hash text NOT NULL,
+  burned_raw numeric(78,0) NOT NULL CHECK (burned_raw >= 0), token_decimals integer NOT NULL,
+  updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(chain_id,deployment_id)
+);

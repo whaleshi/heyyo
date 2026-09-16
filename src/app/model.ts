@@ -11,9 +11,7 @@ export type Token = {
 export type Trade = { id: string; tokenId: string; side: 'buy' | 'sell'; quantity: number; total: number; time: number };
 export type RewardClaim = { id: string; tokenId?: string; tokenTicker?: string; amount: number; time: number };
 export type DemoState = { tokens: Token[]; connected: boolean; balance: number; holdings: Record<string, number>; trades: Trade[]; claimableRewardsByToken: Record<string, number>; rewardClaims: RewardClaim[] };
-// Independent display fields: burned token quantity is not a USDC conversion.
-export const platformStats = { burnedHeyyo: 24680, creatorRewardsUsdc: 24680 };
-export const platformTokenAddress = '0x9A2265D05ac8950e644288471bfA52f1ebbB1257';
+export { platformTokenAddress } from '../../shared/platform';
 // Ayoo Arc routes use the token contract address, never a local slug or ticker.
 export function ayooTokenUrl(token?: Pick<Token, 'contractAddress'>): string {
   const address = token?.contractAddress;

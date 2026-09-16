@@ -1,3 +1,4 @@
+import { getPlatformStats } from './platform.ts';
 import { getWalletRewards, getWalletClaims } from './rewards.ts';
 import { readConfig, hasSourceConfig } from './config.ts';
 import { createPool } from './db.ts';
@@ -9,7 +10,10 @@ const config = readConfig();
 const configured = hasSourceConfig(config) && contractAdapterReady;
 // Missing contract configuration must not require database access just to serve the status.
 const pool = configured && config.databaseUrl ? createPool(config.databaseUrl) : null;
-const server = createApiServer({ configured, rewards: async address => {
+const server = createApiServer({ configured, platform: async () => {
+  if (!pool) throw new Error('Database is unavailable');
+  return getPlatformStats(pool,config);
+}, rewards: async address => {
   if (!pool) throw new Error('Database is unavailable');
   return getWalletRewards(pool,config,address);
 }, claims: async address => {
